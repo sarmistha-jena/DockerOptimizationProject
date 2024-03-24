@@ -1,0 +1,22 @@
+#Explore the Image layers
+
+docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock \
+wagoodman/dive:latest <image:tag>
+
+#Explore image layers & verify the results
+
+docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock \
+wagoodman/dive:latest --ci <image:tag> --lowestEfficiency=0.8 --highestUserWastedPercent=0.45
+
+
+#Insatlling docker-squash
+
+apt update
+sudo apt install python3-pip
+sudo pip install docker-squash
+
+#After installation add the following command to PATH variable
+docker-squash --tag <newimage> <actualimage>
+
+#Run docker-squash and squash from layer 3 and tag the new image
+docker-squash -f 3 --tag <newimage> <actualimage>
